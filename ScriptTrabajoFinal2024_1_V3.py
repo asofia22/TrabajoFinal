@@ -1,20 +1,40 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Thu Mar  7 08:18:37 2024
-For: Algoritmos Pregrado Ingenieria Industrial
-@author: 21-407-JAC
-"""
-# region Importaciones
-import os
-import random as rnd
-import pandas as pd
-import time
-import datetime
-import logging
-import tqdm
-import warnings
-warnings.filterwarnings('ignore')
-# endregion Importaciones
+
+#inicio region Importaciones
+import os  # Librería para interactuar con el sistema operativo
+import random as rnd  # Librería para generar números y elecciones aleatorias
+import numpy as np  # Librería para operaciones numéricas y matrices
+import pandas as pd  # Librería para manejo y análisis de datos
+import time  # Librería para manejo de tiempo
+import datetime  # Librería para fechas y horas
+import logging  # Librería para manejo de logs
+import tqdm  # Librería para barras de progreso
+import warnings  # Librería para manejo de advertencias
+import platform  # Librería para información del sistema operativo
+import getpass  # Librería para obtener el nombre del usuario
+from timeit import default_timer as timer  # Para medir el tiempo de ejecución de código
+warnings.filterwarnings('ignore') # Ignorar advertencias para evitar que se muestren en la salida
+# fin region Importaciones
+
+#########################################################
+# Se utilizó el algoritmo del profesor como base para ejecutar el trabajo final
+##########################################################
+
+# inicio Configuración de logging
+usuario = getpass.getuser() # Obtener el nombre del usuario actual
+sistema_operativo = platform.system() # Obtener el nombre del sistema operativo
+plataforma = platform.platform() # Obtener detalles de la plataforma
+
+# Crear un archivo de log con la fecha y hora actuales en el nombre
+nombre_archivo_log = f"log_{datetime.datetime.now().strftime('%Y%m%d_%H%M%S')}.log"
+logging.basicConfig(filename=nombre_archivo_log, level=logging.INFO,
+                    format='%(asctime)s\t%(message)s', datefmt='%Y-%m-%d %H:%M:%S')
+
+# Registrar información del usuario y sistema en el log
+logging.info(f"Usuario: {usuario}")
+logging.info(f"Sistema Operativo: {sistema_operativo}")
+logging.info(f"Plataforma: {plataforma}")
+# fin region Configuración de logging
+
 # region funciones
 def GenerarNombre(Nombres: list, Apellidos: list) -> str:
     Nombre = rnd.choice(Nombres)
