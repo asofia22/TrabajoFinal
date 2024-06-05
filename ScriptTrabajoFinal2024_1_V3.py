@@ -1,18 +1,17 @@
 
 #inicio region Importaciones
-import os  # Librería para interactuar con el sistema operativo
-import random as rnd  # Librería para generar números y elecciones aleatorias
-import numpy as np  # Librería para operaciones numéricas y matrices
-import pandas as pd  # Librería para manejo y análisis de datos
-import time  # Librería para manejo de tiempo
-import datetime  # Librería para fechas y horas
-import logging  # Librería para manejo de logs
-import tqdm  # Librería para barras de progreso
-import warnings  # Librería para manejo de advertencias
+import os  
+import random as rnd  
+import numpy as np 
+import pandas as pd 
+import datetime  
+import logging  
+import tqdm  
+import warnings 
 import platform  # Librería para información del sistema operativo
 import getpass  # Librería para obtener el nombre del usuario
 from timeit import default_timer as timer  # Para medir el tiempo de ejecución de código
-warnings.filterwarnings('ignore') # Ignorar advertencias para evitar que se muestren en la salida
+warnings.filterwarnings('ignore') 
 # fin region Importaciones
 
 #########################################################
@@ -20,9 +19,9 @@ warnings.filterwarnings('ignore') # Ignorar advertencias para evitar que se mues
 ##########################################################
 
 # inicio Configuración de logging
-usuario = getpass.getuser() # Obtener el nombre del usuario actual
-sistema_operativo = platform.system() # Obtener el nombre del sistema operativo
-plataforma = platform.platform() # Obtener detalles de la plataforma
+usuario = getpass.getuser() 
+sistema_operativo = platform.system() 
+plataforma = platform.platform() 
 
 # Crear un archivo de log con la fecha y hora actuales en el nombre
 nombre_archivo_log = f"log_{datetime.datetime.now().strftime('%Y%m%d_%H%M%S')}.log"
@@ -34,6 +33,20 @@ logging.info(f"Usuario: {usuario}")
 logging.info(f"Sistema Operativo: {sistema_operativo}")
 logging.info(f"Plataforma: {plataforma}")
 # fin region Configuración de logging
+
+# log de eventos registro de cada cosa que se hace
+def log_evento(mensaje):
+    def wrapper(func):
+        def wrapped(*args, **kwargs):
+            start_time = timer()
+            result = func(*args, **kwargs) 
+            end_time = timer() 
+            duration = end_time - start_time 
+            logging.info(f"{mensaje}\tDuración: {duration:.6f} segundos")
+            return result
+        return wrapped
+    return wrapper
+
 
 # region funciones
 def GenerarNombre(Nombres: list, Apellidos: list) -> str:
